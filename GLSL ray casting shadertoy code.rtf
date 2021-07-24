@@ -1,0 +1,184 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 const vec4  skyColor  = vec4(1.0, 1.0, 1.0, 1.00);\
+const float PI = 3.14159265f;\
+\
+\
+\
+\
+\
+\
+\
+struct Ray\
+\{\
+    vec3 origin;\
+    vec3 direction;\
+    vec3 energy;\
+\};\
+Ray CreateRay(vec3 origin, vec3 direction)\
+\{\
+    Ray ray;\
+    ray.origin = origin;\
+    ray.direction = direction;\
+    ray.energy = vec3(1.0, 1.0, 1.0);\
+    return ray;\
+\}\
+\
+Ray CreateCameraRay(vec2 coord)\
+\{\
+    vec2 uv = (coord * 2.0 - iResolution.xy) / iResolution.y;\
+    vec2 mo = iMouse.xy / iResolution.y * 3.5;\
+    if (mo == vec2(0)) mo = vec2(0,1.75);\
+    vec3 ro = 5.0 * vec3(sin(mo.x), 2.0-mo.y, cos(mo.x));\
+    vec3 z = normalize(ro);\
+    vec3 x = normalize(cross(vec3(0.0, 1.0, 0.0), z));\
+    vec3 rd = mat3(x, cross(z, x), z) * vec3(uv, -1.0);\
+\
+    return CreateRay(ro, rd);\
+\}\
+\
+struct RayHit\
+\{\
+    vec3 position;\
+    float distance;\
+    vec3 normal;\
+\};\
+RayHit CreateRayHit()\
+\{\
+    RayHit hit;\
+    hit.position = vec3(0.0f, 0.0f, 0.0f);\
+    hit.distance = 9999.0;\
+    hit.normal = vec3(0.0f, 0.0f, 0.0f);\
+    return hit;\
+\}\
+\
+\
+\
+void IntersectGroundPlane(Ray ray, inout RayHit bestHit, vec3 pn, float pd)\
+\{\
+    \
+    // Calculate distance along the ray where the ground plane is intersected\
+    float denominator = dot(ray.direction, pn);\
+    float t = -(dot(ray.origin, pn) + pd) / denominator;\
+\
+    if (t > 0.0 && t < bestHit.distance)\
+    \{\
+    \
+\
+        bestHit.distance = t;\
+        bestHit.position = ray.origin + t * ray.direction;\
+        bestHit.normal = pn;\
+    \}\
+\}\
+\
+void IntersectSphere(Ray ray, inout RayHit bestHit, vec4 sphere)\
+\{\
+\
+    float t = -1.0;\
+    float a = dot(ray.direction, ray.direction);\
+    vec3 s0_r0 = ray.origin - sphere.xyz;\
+    float b = 2.0 * dot(ray.direction, s0_r0);\
+    float c = dot(s0_r0, s0_r0) - (sphere.a * sphere.a);\
+    if (!(b*b - 4.0*a*c < 0.0)) \{\
+        t = (-b - sqrt((b*b) - 4.0*a*c))/(2.0*a);\
+    \}\
+\
+    if (t > 0.0 && t < bestHit.distance)\
+    \{\
+        bestHit.distance = t;\
+        bestHit.position = ray.origin + t * ray.direction;\
+        bestHit.normal = normalize(bestHit.position - sphere.xyz);\
+    \}\
+\}\
+\
+const vec4 groundplane = vec4(0.0,1.0,0.0,5.0);//normal vector.xyz,distance from origin\
+//const vec4 groundplane2 = vec4(0.58,0.99,0.0,7.0); //45\'b0 angle\
+//const vec4 groundplane2 = vec4(1.0,0.0,0.0,7.0); //90\'b0 angle\
+const vec4 sphere1 = vec4(0.0,0.0,0.0,1.0);//position.xyz, radius\
+const vec4 sphere2 = vec4(-7.0,-10.0,10.0,8.0);\
+const vec4 sphere3 = vec4(5.0,4.0,-10.0,7.0);\
+\
+RayHit Trace(Ray ray)\
+\{\
+    RayHit bestHit = CreateRayHit();\
+    IntersectGroundPlane(ray, bestHit,groundplane.xyz,groundplane.a);\
+    IntersectSphere(ray, bestHit, sphere1);\
+    IntersectSphere(ray, bestHit, sphere2);\
+    IntersectSphere(ray, bestHit, sphere3);\
+    //IntersectGroundPlane(ray, bestHit,groundplane2.xyz,groundplane2.a);\
+\
+    return bestHit;\
+\}\
+\
+\
+\
+vec3 Shade(inout Ray ray, RayHit hit)\
+\{\
+    if (hit.distance < 9900.0)\
+    \{\
+        vec3 specular = vec3(1.0f, 0.78f, 0.34f);//shinny gold\
+        \
+        \
+        // Reflect the ray and multiply energy with specular reflection\
+        ray.origin = hit.position + hit.normal * 0.001f;\
+        ray.direction = reflect(ray.direction, hit.normal);\
+        ray.energy *= specular;\
+        \
+        //color\
+        return vec3(0.0, 0.0, 0.0);// Return nothing/ silver\
+        //return vec3(1.0f, 0.78f, 0.34f);//gold\
+        //return vec3(0.0, 0.0, 1.0);// blue\
+/*\
+        // Return the normal/ rainbow\
+        return hit.normal;\
+        //return hit.normal * 0.5f + 0.5f;\
+*/\
+        \
+    \}\
+    else\
+    \{\
+        // Erase the ray's energy - the sky doesn't reflect anything\
+        ray.energy = vec3(0.12);\
+/*\
+        //For 2D texture only\
+        float theta = acos(ray.direction.y) / -PI;\
+        float phi = atan(ray.direction.x, -ray.direction.z) / -PI * 0.5f;\
+        return texture(iChannel0, vec2(phi, theta)).xyz;\
+*/\
+        return texture(iChannel0, ray.direction).xyz;//texture\
+        //return ray.direction* 0.5 + 0.5;//uv rainbow\
+    \}\
+\}\
+\
+void mainImage( out vec4 fragColor, in vec2 fragCoord )\
+\{\
+    \
+    Ray ray = CreateCameraRay(fragCoord);\
+    \
+    vec3 result = vec3(0.0, 0.0, 0.0);\
+    \
+    for (int i = 0; i < 8; i++)\
+    \{\
+        RayHit hit = Trace(ray);\
+        result += ray.energy * Shade(ray, hit);\
+        if (!any(greaterThan(ray.energy,vec3(0.001)))) break;\
+        \
+    \}\
+    fragColor = vec4(result,1.0);\
+   \
+/*\
+    //flat color no reflection\
+    RayHit hit = Trace(ray);\
+    vec3 result = Shade(ray, hit);//modify Shade function\
+    fragColor = vec4(result,1.0);\
+*/    \
+    \
+    //fragColor = texture(iChannel0, ray.direction);\
+    //fragColor = vec4(ray.direction* 0.5f + 0.5f, 1.0f);\
+\
+\}}
