@@ -12,7 +12,6 @@ https://godotengine.org/asset-library...
 
 basically it takes pictures as I play and I use a video editor to stitch them up into a video. 
 
-The latest update is in branch "Portals&Planes".
 
 # SHADOWS AND INDIVIDUAL OBJECT MATERIALS
 <img width="1014" alt="Screen Shot 2021-08-02 at 7 13 07 PM" src="https://user-images.githubusercontent.com/37253663/127853068-57641b87-0d61-4ec2-b3c8-16e74894da54.png">
@@ -28,3 +27,5 @@ https://youtu.be/aLgPsX8Cplk
 <img width="1016" alt="Screen Shot 2021-08-02 at 7 17 11 PM" src="https://user-images.githubusercontent.com/37253663/127853498-2091d107-ebcb-4a18-9ff2-341b094d9cc5.png">
 YT link:
 https://youtu.be/YOs6WQp5o0Q
+
+Everything is in the latest update in the "Portals&Planes" branch.
