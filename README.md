@@ -13,3 +13,6 @@ https://godotengine.org/asset-library...
 basically it takes pictures as I play and I use a video editor to stitch them up into a video. 
 
 So the latest update is in branch "Portals&Planes". I'm not going to merge it with the main branch so people would see how the code progressed over iterations. Maybe even see a few of my mistakes and learn from it? idk.
+
+# LIGHT AND SHADOWS
+# PORTALS
