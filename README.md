@@ -10,7 +10,7 @@ Though it may seem laggy when you play it in the editor, it really is buttery sm
 I couldn't use OBS in recording this cause I'm running on a ripe potato. It couldn't handle the overhead so I recorded it from inside the game using the _Godot Recorder addon:_
 https://godotengine.org/asset-library...
 
-basically it takes pictures as I play and I use a video editor to stitch them up into a video. 
+basically it takes pictures as I play and I use ffmpeg to stitch them up into a video and edit it using a video editor.
 
 
 # SHADOWS AND INDIVIDUAL OBJECT MATERIALS
