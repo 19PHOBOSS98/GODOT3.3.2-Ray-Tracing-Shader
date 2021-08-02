@@ -12,7 +12,19 @@ https://godotengine.org/asset-library...
 
 basically it takes pictures as I play and I use a video editor to stitch them up into a video. 
 
-So the latest update is in branch "Portals&Planes". I'm not going to merge it with the main branch so people would see how the code progressed over iterations. Maybe even see a few of my mistakes and learn from it? idk.
+The latest update is in branch "Portals&Planes".
 
-# LIGHT AND SHADOWS
+# SHADOWS AND INDIVIDUAL OBJECT MATERIALS
+<img width="1014" alt="Screen Shot 2021-08-02 at 7 13 07 PM" src="https://user-images.githubusercontent.com/37253663/127853068-57641b87-0d61-4ec2-b3c8-16e74894da54.png">
+YT links:
+https://youtu.be/mTPDEdvaZtc
+
+# OBJECT LIGHT SOURCE
+![3784](https://user-images.githubusercontent.com/37253663/127852651-96c4be89-11fa-476c-b5f9-c72f77cebc29.png)
+YT links:
+https://youtu.be/aLgPsX8Cplk
+
 # PORTALS
+<img width="1016" alt="Screen Shot 2021-08-02 at 7 17 11 PM" src="https://user-images.githubusercontent.com/37253663/127853498-2091d107-ebcb-4a18-9ff2-341b094d9cc5.png">
+YT link:
+https://youtu.be/YOs6WQp5o0Q
