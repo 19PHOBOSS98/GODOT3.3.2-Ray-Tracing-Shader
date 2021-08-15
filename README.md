@@ -8,7 +8,7 @@ https://youtu.be/4BSGBUvS8uw
 Though it may seem laggy when you play it in the editor, it really is buttery smooth after compiling it... on my Mac that is, I'm not so sure about other platforms cause the code is GPU related.
 
 I couldn't use OBS in recording this cause I'm running on a ripe potato. It couldn't handle the overhead so I recorded it from inside the game using the _Godot Recorder addon:_
-https://godotengine.org/asset-library...
+https://godotengine.org/asset-library/asset/220
 
 basically it takes pictures as I play and I use ffmpeg to stitch them up into a video and edit it using a video editor.
 
