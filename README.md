@@ -1,4 +1,4 @@
-# GODOT3.3.2-Ray-Casting-Shader
+# GODOT3.3.2-Ray-Tracing-Shader
 
 <img width="1045" alt="Screen Shot 2021-07-25 at 1 15 16 AM" src="https://user-images.githubusercontent.com/37253663/126878541-87689c45-8d42-487c-a2d1-344284401a0f.png">
 
